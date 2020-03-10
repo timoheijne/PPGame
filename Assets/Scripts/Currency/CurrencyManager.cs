@@ -4,10 +4,32 @@ using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
-    private int _moneyz;
-
-    void OnMoneyzChange(int amount)
+    private int _currency;
+    public int Currency
     {
-        _moneyz += amount;
+        get { return _currency; }
+        set
+        {
+            if (_currency == value) return;
+
+            _currency = value;
+
+            if (onCurrencyChange != null)
+            {
+                onCurrencyChange(_currency);
+            }
+        }
+    }
+    public delegate void OnCurrencyChange(int newValue);
+    public event OnCurrencyChange onCurrencyChange;
+
+    private void Start()
+    {
+        this.onCurrencyChange += CurrencyChangeHandler;
+    }
+
+    private void CurrencyChangeHandler(int newValue)
+    {
+
     }
 }
