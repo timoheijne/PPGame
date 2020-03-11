@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CurrencyManager : MonoBehaviour
 {
-    private Text _currencyText;
+    private static CurrencyManager _instance;
     private int _currency = 150;
 
     public int Currency
@@ -18,8 +18,15 @@ public class CurrencyManager : MonoBehaviour
             _currency = value;
 
             onCurrencyChange?.Invoke(_currency);
-            //_currencyText.text = "Florins: " + _currency;
         }
+    }
+
+    public static bool SubstractCurrency(int cost)
+    {
+        if (_instance._currency - cost < 0) return false;
+
+        _instance._currency -= cost;
+        return true;
     }
 
     public delegate void OnCurrencyChange(int newValue);
@@ -27,9 +34,6 @@ public class CurrencyManager : MonoBehaviour
 
     private void Start()
     {
-        _currencyText = GameObject.Find("CurrencyText").GetComponent<Text>();
-        _currencyText.text = "Florins: " + _currency.ToString();
-
         onCurrencyChange += CurrencyChangeHandler;
     }
 
