@@ -7,14 +7,13 @@ namespace ItemSystem
 {
     public class ItemSystem : MonoBehaviour
     {
-        private static ItemSystem _instance;
-
         public static ItemSystem Instance
         {
             get { return _instance; }
         }
-
-        private List<Item> items;
+        
+        private static ItemSystem _instance;
+        private List<Item> _items;
 
         private void Start()
         {
@@ -32,11 +31,11 @@ namespace ItemSystem
 
         private void loadItems(string path)
         {
-            items = Resources.LoadAll<Item>(path).ToList();
+            _items = Resources.LoadAll<Item>(path).ToList();
 
-            foreach (Item item in items)
+            foreach (Item item in _items)
             {
-                List<Item> itemDuplicateCheck = items.FindAll(i => i.UniqueItemId == item.UniqueItemId).ToList();
+                List<Item> itemDuplicateCheck = _items.FindAll(i => i.UniqueItemId == item.UniqueItemId).ToList();
 
                 if (itemDuplicateCheck.Count > 1)
                 {
@@ -47,7 +46,7 @@ namespace ItemSystem
  
         public Item GetItemByID(int itemId)
         {
-            return items.Find(i => i.UniqueItemId == itemId);
+            return _items.Find(i => i.UniqueItemId == itemId);
         }
     } 
 }

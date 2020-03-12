@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Grid;
+using UnityEngine;
 
 namespace ItemSystem
 {
@@ -7,7 +8,8 @@ namespace ItemSystem
     {
         public int UniqueItemId;
         public string ItemName;
-        public bool IsActive;
+        public bool IsActive = true;
         public GameObject ItemPrefab;
+        public Grid.TileType TileType = TileType.BaseTile;
     }
 }
