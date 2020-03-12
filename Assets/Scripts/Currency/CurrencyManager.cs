@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CurrencyManager : MonoBehaviour
 {
-    private static CurrencyManager _instance;
+    public static CurrencyManager _instance;
+    public static CurrencyManager Instance { get { return _instance; } }
+
     private int _currency = 150;
 
+    //Sets the currency after the player buys or earns currency
     public int Currency
     {
         get { return _currency; }
@@ -17,28 +21,44 @@ public class CurrencyManager : MonoBehaviour
 
             _currency = value;
 
-            onCurrencyChange?.Invoke(_currency);
+            OnCurrencyChange?.Invoke(_currency);
         }
     }
 
-    public static bool SubstractCurrency(int cost)
+    //Checks if the player is able to buy a tower
+    public bool SubstractCurrency(int _cost)
     {
-        if (_instance._currency - cost < 0) return false;
+        if (_instance._currency - _cost < 0) return false;
 
-        _instance._currency -= cost;
+        _instance._currency += _cost;
+        OnCurrencyChange?.Invoke(_currency);
         return true;
     }
 
-    public delegate void OnCurrencyChange(int newValue);
-    public event OnCurrencyChange onCurrencyChange;
+    public Action<int> OnCurrencyChange;
+
 
     private void Start()
     {
-        onCurrencyChange += CurrencyChangeHandler;
+        if(CurrencyManager.Instance == null)
+        {
+            _instance = this;
+            OnCurrencyChange += CurrencyChangeHandler;
+        } else
+        {
+            Destroy(this);
+        }
+        
     }
 
-    private void CurrencyChangeHandler(int newValue)
+    public void CurrencyChangeHandler(int _newValue)
     {
+        Debug.Log("change currency with: " + _newValue);
 
+        if (_currency + _newValue < Currency)
+        {
+            Debug.Log("Substract: " + _newValue);
+            SubstractCurrency(_newValue);
+        }
     }
 }
