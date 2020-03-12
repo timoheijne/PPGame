@@ -10,14 +10,14 @@ public class ChangeMoney : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            CurrencyManager.Instance.CurrencyChangeHandler(50);
+            CurrencyManager.Instance.ChangeAmountBy(50);
             //_currencyChange(worth);
             Debug.Log(CurrencyManager.Instance.Currency);
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            CurrencyManager.Instance.CurrencyChangeHandler(-50);
+            CurrencyManager.Instance.ChangeAmountBy(-50);
             //_currencyChange(cost);
             Debug.Log(CurrencyManager.Instance.Currency);
         }

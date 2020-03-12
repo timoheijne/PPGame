@@ -25,16 +25,6 @@ public class CurrencyManager : MonoBehaviour
         }
     }
 
-    //Checks if the player is able to buy a tower
-    public bool SubstractCurrency(int _cost)
-    {
-        if (_instance._currency - _cost < 0) return false;
-
-        _instance._currency += _cost;
-        OnCurrencyChange?.Invoke(_currency);
-        return true;
-    }
-
     public Action<int> OnCurrencyChange;
 
 
@@ -43,22 +33,17 @@ public class CurrencyManager : MonoBehaviour
         if(CurrencyManager.Instance == null)
         {
             _instance = this;
-            OnCurrencyChange += CurrencyChangeHandler;
         } else
         {
             Destroy(this);
         }
-        
     }
 
-    public void CurrencyChangeHandler(int _newValue)
+    public bool ChangeAmountBy(int _newValue)
     {
-        Debug.Log("change currency with: " + _newValue);
+        if (_currency + _newValue < 0) return false;
+        _currency += _newValue;
 
-        if (_currency + _newValue < Currency)
-        {
-            Debug.Log("Substract: " + _newValue);
-            SubstractCurrency(_newValue);
-        }
+        return true;
     }
 }
