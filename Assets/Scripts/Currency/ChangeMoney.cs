@@ -6,6 +6,7 @@ public class ChangeMoney : MonoBehaviour
 {
     private int worth = 50;
     private int cost = -50;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))

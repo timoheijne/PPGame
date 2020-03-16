@@ -26,11 +26,10 @@ public class CurrencyManager : MonoBehaviour
 
             _currency = value;
             OnCurrencyChange?.Invoke(_currency);
-            OnChange?.Invoke(Currency);
         }
     }
 
-    public Action<int> OnCurrencyChange;
+    public static Action<int> OnCurrencyChange;
 
 
     private void Start()
@@ -49,6 +48,7 @@ public class CurrencyManager : MonoBehaviour
         if (_currency + _newValue < 0) return false;
 
         _currency += _newValue;
+        CurrencyUI.Instance.AdjustUI(_currency);
         return true;
     }
 }
