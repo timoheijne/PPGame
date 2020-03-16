@@ -1,4 +1,5 @@
 ﻿using System;
+using Grid;
 using UnityEngine;
 
 namespace Input
@@ -17,6 +18,13 @@ namespace Input
                     Transform objectHit = hit.transform;
                     Debug.Log(objectHit.name);
                     // Do something with the object that was hit by the raycast.
+
+                    GridNode node = objectHit.GetComponent<GridNode>();
+                    if (node != null)
+                    {
+                        // We hit a node boys...
+                        node.SetTile(TileType.BaseTile, 1);
+                    }
                 }
             }
         }
