@@ -18,5 +18,4 @@ public class EnemyDefinition : ScriptableObject
     public float AttackSpeed;
 
     public RangeType RangeType;
-    public GameObject Model;
 }

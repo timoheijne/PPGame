@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour 
 {
-    
     public EnemyDefinition EnemyType;
-    private GameObject _enemyModel;
 
     private string _enemyName;
     private int _enemyStrength;
@@ -18,7 +16,6 @@ public class EnemyController : MonoBehaviour
 
     private void Start() 
     {
-        _enemyMesh = gameObject.GetComponent<MeshFilter>().mesh;
         SetEnemy(EnemyType);
         DebugDefinitionStats(EnemyType);
         DebugCurrentStats();
@@ -32,6 +29,7 @@ public class EnemyController : MonoBehaviour
         _enemyMoveSpeed = definition.MoveSpeed;
         _enemyHealth = definition.Health;
         _enemyAttackSpeed = definition.AttackSpeed;
+
         if (definition.RangeType == RangeType.Ranged) {
             _enemyAttackRange = 5;
         } 
@@ -39,10 +37,6 @@ public class EnemyController : MonoBehaviour
         {
             _enemyAttackRange = 2;
         }
-
-        _enemyModel = Instantiate(definition.Model, 
-                                  transform.position, 
-                                  transform.rotation) as GameObject;
     }
 
     void DebugDefinitionStats(EnemyDefinition definition) 
@@ -55,7 +49,6 @@ public class EnemyController : MonoBehaviour
         Debug.Log(definition.Health);
         Debug.Log(definition.AttackSpeed);
         Debug.Log(definition.RangeType.ToString());
-        Debug.Log(definition.Mesh.ToString());
     }
 
     void DebugCurrentStats() 
@@ -68,6 +61,5 @@ public class EnemyController : MonoBehaviour
         Debug.Log(_enemyHealth);
         Debug.Log(_enemyAttackSpeed);
         Debug.Log(_enemyAttackRange);
-        Debug.Log(_enemyMesh.ToString());
     }
 }
