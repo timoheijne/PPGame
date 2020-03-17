@@ -17,8 +17,6 @@ public class EnemyController : MonoBehaviour
     private void Start() 
     {
         SetEnemy(EnemyType);
-        DebugDefinitionStats(EnemyType);
-        DebugCurrentStats();
     }
 
     public void SetEnemy(EnemyDefinition definition) 
@@ -37,29 +35,5 @@ public class EnemyController : MonoBehaviour
         {
             _enemyAttackRange = 2;
         }
-    }
-
-    void DebugDefinitionStats(EnemyDefinition definition) 
-    {
-        Debug.Log("Aplying These Stats:");
-        Debug.Log(definition.Name);
-        Debug.Log(definition.Strength);
-        Debug.Log(definition.Worth);
-        Debug.Log(definition.MoveSpeed);
-        Debug.Log(definition.Health);
-        Debug.Log(definition.AttackSpeed);
-        Debug.Log(definition.RangeType.ToString());
-    }
-
-    void DebugCurrentStats() 
-    {
-        Debug.Log("Current Aplied Stats:");
-        Debug.Log(_enemyName);
-        Debug.Log(_enemyStrength);
-        Debug.Log(_enemyWorth);
-        Debug.Log(_enemyMoveSpeed);
-        Debug.Log(_enemyHealth);
-        Debug.Log(_enemyAttackSpeed);
-        Debug.Log(_enemyAttackRange);
     }
 }
